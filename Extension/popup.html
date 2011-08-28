@@ -1,0 +1,41 @@
+<style>
+body {
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  background: white;
+}
+
+div:first-child {
+  margin-top: 0px;
+}
+
+div {
+  cursor: pointer;
+  text-align: center;
+  padding: 1px 3px;
+  font-family: sans-serif;
+  font-size: 0.8em;
+  width: 100px;
+  margin-top: 1px;
+  background: #cccccc;
+}
+div:hover {
+  background: #aaaaaa;
+}
+
+</style>
+<script>
+function clickNext() {
+  chrome.tabs.executeScript(null,
+      {code:"var a = document.getElementById('ToolbarPrev'); if (!a) a = document.getElementById('PREVIOUS_SLIDE');  var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);"});
+  window.close();
+}
+function clickPrev() {
+  chrome.tabs.executeScript(null,
+      {code:"var a = document.getElementById('ToolbarNext'); if (!a) a = document.getElementById('NEXT_SLIDE'); var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);"});
+  window.close();
+}
+</script>
+<div onclick="clickNext()" id="red"><IMG src="left.png"></div>
+<div onclick="clickPrev()" id="blue"><img src="right.png"></div>
