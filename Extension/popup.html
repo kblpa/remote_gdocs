@@ -26,16 +26,27 @@ div:hover {
 
 </style>
 <script>
-function clickNext() {
-  chrome.tabs.executeScript(null,
-      {code:"var a = document.getElementById('ToolbarPrev'); if (!a) a = document.getElementById('PREVIOUS_SLIDE');  var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);"});
-  window.close();
-}
 function clickPrev() {
-  chrome.tabs.executeScript(null,
-      {code:"var a = document.getElementById('ToolbarNext'); if (!a) a = document.getElementById('NEXT_SLIDE'); var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);"});
-  window.close();
+  chrome.windows.getAll({ populate: true }, function(windowList) {
+    for (var i = 0; i < windowList.length; i++) {
+      for (var j = 0; j < windowList[i].tabs.length; j++) {
+        chrome.tabs.executeScript(windowList[i].tabs[j].id,
+       {code:"var a = document.getElementById('ToolbarPrev'); if (!a) a = document.getElementById('PREVIOUS_SLIDE'); if(a) { var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);}"});
+      }
+    }
+  });
+}
+function clickNext() {
+	chrome.windows.getAll({ populate: true }, function(windowList) {
+    for (var i = 0; i < windowList.length; i++) {
+      for (var j = 0; j < windowList[i].tabs.length; j++) {
+        chrome.tabs.executeScript(windowList[i].tabs[j].id,
+       {code:"var a = document.getElementById('ToolbarNext'); if (!a) a = document.getElementById('NEXT_SLIDE'); if(a) { var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);}"});
+      }
+    }
+  });
 }
 </script>
-<div onclick="clickNext()" id="red"><IMG src="left.png"></div>
-<div onclick="clickPrev()" id="blue"><img src="right.png"></div>
+<div onclick="clickPrev()" id="red"><IMG src="left.png"></div>
+<div onclick="clickNext()" id="blue"><img src="right.png"></div>
+
