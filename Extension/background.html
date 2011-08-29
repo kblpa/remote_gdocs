@@ -1,0 +1,60 @@
+<html>
+<head>
+<script>
+
+  localStorage["slide_number"] = 1;
+  
+  window.setInterval( function () {
+  
+	var req = new XMLHttpRequest();
+  
+	function showPhotos() {
+		//console.dir(req);
+		
+		var current = JSON.parse(req.responseText).number;
+		var diff = current - parseInt(localStorage["slide_number"] ) ;
+		
+		if (diff > 0)
+		{
+	        for (var k = 0; k < diff; k++)
+			{
+				chrome.windows.getAll({ populate: true }, function(windowList) {
+					for (var i = 0; i < windowList.length; i++) {
+						for (var j = 0; j < windowList[i].tabs.length; j++) {
+							chrome.tabs.executeScript(windowList[i].tabs[j].id,
+							{code:"var a = document.getElementById('ToolbarNext'); if (!a) a = document.getElementById('NEXT_SLIDE'); if(a) { var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);}"});
+						}
+					}
+				});
+			}
+		}
+		else
+		{
+			for (var k = 0; k < -diff; k++)
+			{
+				chrome.windows.getAll({ populate: true }, function(windowList) {
+					for (var i = 0; i < windowList.length; i++) {
+						for (var j = 0; j < windowList[i].tabs.length; j++) {
+							chrome.tabs.executeScript(windowList[i].tabs[j].id,
+							{code:"var a = document.getElementById('ToolbarPrev'); if (!a) a = document.getElementById('PREVIOUS_SLIDE'); if(a) { var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);}"});
+						}
+					}
+				});
+			}
+		}
+		
+		localStorage["slide_number"]  =  current;
+	}
+	
+	req.open(
+		"GET",
+		"http://mosgtughack.appspot.com/?q=getnumber",
+		true);
+	req.onload = showPhotos;
+	req.send(null);
+	
+	}, 3000);
+
+</script>
+</head>
+</html>
