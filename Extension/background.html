@@ -10,6 +10,25 @@ window.setInterval(
 		chrome.cookies.getAll( {"name":"GAUSR"}, 
 			//Get all cookies with name "GAUSR" 
 			function(cookies) {		
+				
+				//Function returns google account of currently logged in user
+				function getAccountName (cookies) {
+					if (cookies && cookies.length > 0)
+					{					
+						var arr = cookies[0].value.toString().split(":");
+						return arr[arr.length - 1];
+					}
+					else
+					{
+						return null;
+					}
+				}
+				
+				var accountName = getAccountName(cookies);
+				
+				//Don't send request if user not authorized
+				if (!accountName) return;
+				
 				var req = new XMLHttpRequest();
   
 				//Response 
@@ -51,23 +70,10 @@ window.setInterval(
 					localStorage["slide_number"]  =  current;
 				}
 	
-				var url = "http://mosgtughack.appspot.com/";
-			
-				//Function returns google account of currently logged in user
-				function getAccountName (cookies) {
-					if (cookies && cookies.length > 0)
-					{					
-						var arr = cookies[0].value.toString().split(":");
-						return arr[arr.length - 1];
-					}
-					else
-					{
-						return "anonymous";
-					}
-				}
+				var url = "http://localhost:8080/guestbook/"//"http://mosgtughack.appspot.com/";			
 			
 			    //Parameters of XMLHttpRequest 
-				var params = {"q": "getnumber", "un": getAccountName(cookies)};
+				var params = {"q": "getnumber", "un": accountName};
 	
 				function stringify(parameters) {
 					var params = [];
