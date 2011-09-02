@@ -20,12 +20,20 @@ div {
   margin-top: 1px;
   background: #cccccc;
 }
+
 div:hover {
   background: #aaaaaa;
 }
 
 </style>
 <script>
+
+window.addEventListener("load", onLoad, false);
+
+function onLoad() {
+	document.getElementById("switchActivity").innerText = localStorage["active"] != "true" ? "Включить" : "Отключить";
+}
+
 function clickPrev() {
   chrome.windows.getAll({ populate: true }, function(windowList) {
     for (var i = 0; i < windowList.length; i++) {
@@ -46,7 +54,21 @@ function clickNext() {
     }
   });
 }
-</script>
-<div onclick="clickPrev()" id="red"><IMG src="left.png"></div>
-<div onclick="clickNext()" id="blue"><img src="right.png"></div>
 
+function switchActivity() {		
+		localStorage["active"] = localStorage["active"] != "true";	
+		console.dir(chrome.browserAction);
+		chrome.extension.getBackgroundPage().updateIcon();
+		window.close();
+}
+</script>
+
+<body>
+<table>
+  <tr>
+    <td><div onclick="clickPrev()" id="back"><IMG src="left.png"></div></td>
+	<td><div onclick="switchActivity()" id="switchActivity">Отключить</div></td>
+	<td><div onclick="clickNext()" id="forward"><img src="right.png"></div></td>
+  </tr>
+</table>
+</body>

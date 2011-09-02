@@ -1,12 +1,20 @@
 <html>
 <head>
 <script>
+
 //Extension start: set current slide number to zero
 localStorage["slide_number"] = 1;  	
+//Set activity flag to true at first start of extension
+if (typeof(localStorage["active"]) == "undefined" ) localStorage["active"] = true;
+//Setup icon
+updateIcon();
   
 window.setInterval( 
 	//This function wiil run every 500 ms
 	function () {
+		//Extension sends requests only if  activity flag is set to true
+		if (localStorage["active"] != "true") return; 
+		
 		chrome.cookies.getAll( {"name":"GAUSR"}, 
 			//Get all cookies with name "GAUSR" 
 			function(cookies) {		
@@ -93,6 +101,11 @@ window.setInterval(
 			}
 		);	
 	}, 500);
+
+
+function updateIcon() {
+	chrome.browserAction.setIcon({ path : localStorage["active"] != "true" ? "icon_disabled.png" : "icon.png" });
+}	
 </script>
 </head>
 </html>
