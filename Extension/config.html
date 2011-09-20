@@ -1,0 +1,223 @@
+<html>
+  <head>
+    <title>Config</title>
+    <link  href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,100italic,300,300italic,400,400italic,600,600italic,700,700italic" rel="stylesheet" type="text/css" >
+    <link  href="http://fonts.googleapis.com/css?family=Tinos:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" >
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.8.13/jquery-ui.min.js"></script>
+    <style type="text/css">
+      body {
+        font-family: 'Lato', sans-serif;
+        background-color: #3C5A76;
+		background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 600, from(#7393AC), to(#3C5A76));
+		background: -moz-radial-gradient(50% 50%, farthest-side, #7393AC, #3C5A76);
+      }
+      
+      #header {
+        width: 100%;
+        text-align: right;
+        link-decoration: none;
+        text-color: #FFFFFF;
+      }
+      
+      #menubar {
+        width: 15%;
+        float: left;
+      }
+      
+      #menubar li {
+        padding-top: 5px;
+      }
+      
+      #content {
+        width: 65%;
+        margin: 0 auto;
+      }
+      
+      #progress {
+        font-size: 28px;
+        text-align: center;
+        width: 100%;
+        font-family: 'Lato', sans-serif;
+        font-weight: 600;
+        position: fixed;
+		bottom: 0px;
+		margin-bottom: 36px;
+      }
+      
+      #instructions {
+      	padding: 1%;
+      	font-size: 18px;
+      	color: #FFFFFF;
+      	text-shadow: 0px 2px 3px #555;
+      	font-size: 28px;
+      	margin: 0 auto;
+      }
+      
+      #continue {
+      	text-align: right;
+      	width: 100%;
+      }
+      
+      #footer {
+      	text-align: center;
+      	width: 100%;
+      	clear: both;
+      	padding-top: 2%;
+      	font-size: 14px;
+      	position: fixed;
+		bottom: 0px;
+		color: #FFFFFF;
+		text-shadow: 0px 2px 3px #555;
+      }
+      
+      .bullet {
+      	padding: 2px;
+      	font-size: 46px;
+      	opacity: 0.5;
+      }
+      
+      .completed {
+      	color: #ffffff;
+      }
+      
+      .centered {
+        margin: 0px auto;
+        text-align: center;
+      }
+      
+      .continuebutton {
+		-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+		-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+		box-shadow:inset 0px 1px 0px 0px #ffffff;
+		background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+		background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+		background-color:#ededed;
+		-moz-border-radius:6px;
+		-webkit-border-radius:6px;
+		border-radius:6px;
+		border:1px solid #dcdcdc;
+		display:inline-block;
+		color:#444444;
+		font-family:arial;
+		font-size:15px;
+		font-weight:bold;
+		padding:6px 24px;
+		text-decoration:none;
+		text-shadow:1px 1px 0px #ffffff;
+	}
+
+	.continuebutton:hover {
+		background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+		background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+		background-color:#dfdfdf;
+	}
+
+	.continuebutton:active {
+		position:relative;
+		top:1px;
+	}
+
+	.textarea {
+		-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+		-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+		box-shadow:inset 0px 1px 0px 0px #ffffff;
+		background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+		background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+		background-color:#ededed;
+		-moz-border-radius:6px;
+		-webkit-border-radius:6px;
+		border-radius:6px;
+		border:1px solid #dcdcdc;
+		display:inline-block;
+		color:#444444;
+		font-family:arial;
+		font-size:25px;
+		font-weight:bold;
+		text-decoration:none;
+		text-shadow:1px 1px 0px #ffffff;
+		width: 600px;
+		height: 56px;
+		margin-bottom: 10px;
+		margin-right: 10px;
+		padding-left: 5px;
+	}
+
+	#title {
+		text-align: center;
+		font-size: 48px;
+		color: #ffffff;
+		text-shadow: 0px 2px 3px #555;	
+	}
+
+	.checkbox {
+		margin-right: 5px;	
+	}
+	</style>
+    <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript" src="socket.js"></script>
+    <script type="text/javascript" src="auth.js"></script>
+ 
+    <script type="text/javascript">
+      function bodyLoad() {
+        config.load();
+        document.getElementById("a2c_config.host").value = config.host;
+        document.getElementById("a2c_config.key").value = config.key;
+        document.getElementById("a2c_config.secret").value = config.secret;
+        document.getElementById("a2c_config.callback").value = config.callback;
+        document.getElementById("a2c_config.identifier").value = config.identifier;
+      }
+      function save() {
+        var settings = new Object();
+        var host = document.getElementById("a2c_config.host").value;
+      	if(host.indexOf("://") == -1)
+      	  host = "http://" + host;
+      	if(host.charAt(host.length - 1) != "/")
+      	  host += "/";
+      	var callback = document.getElementById("a2c_config.callback").value;
+      	if(callback.charAt(0) == "/")
+      	  callback = callback.substring(1);
+        settings.host = host;
+        settings.secureHost = settings.host.replace("http://", "https://");
+        settings.key = document.getElementById("a2c_config.key").value;
+        settings.secret = document.getElementById("a2c_config.secret").value;
+        settings.callback = callback;
+        settings.identifier = document.getElementById("a2c_config.identifier").value.replace(/\//g, "").replace(/:/g, "");
+        var changedIdentifier = (settings.identifier != config.identifier);
+        var changedHost = (settings.host != config.host);
+        config.save(settings);
+        chrome.extension.getBackgroundPage().config.load();
+        if(changedHost) {
+          auth.initiate();
+        }else if(changedIdentifier) {
+          sockets.getTokenRequest();
+        }
+        window.close();
+      }
+    </script>
+  </head>
+  <body onLoad="window.setTimeout(bodyLoad(), 100);">
+    <div id="header">
+      <a href="http://gdocscontrol.appspot.com/" id="helpLink" class="continuebutton">Help</a>
+    </div>
+    
+    <div id="content">
+      <div id="title">
+        Extension Settings
+      </div>
+      <div id="instructions">
+        <div id="instructionText">
+          <input type="url" id="a2c_config.host" class="textarea" placeholder="Host"/><label for="a2c_config.host">Host</label><br />
+          <input type="text" id="a2c_config.key" class="textarea" placeholder="Key"/><label for="a2c_config.key">Key</label><br />
+          <input type="text" id="a2c_config.secret" class="textarea" placeholder="Secret"/><label for="a2c_config.secret">Secret</label><br />
+          <input type="text" id="a2c_config.callback" class="textarea" placeholder="Callback"/><label for="a2c_config.callback">Callback</label><br />
+          <input type="text" id="a2c_config.identifier" class="textarea" placeholder="Device Name"/><label for="a2c_config.identifier">Device</label><br />
+          <p><button onClick="save();" class="continuebutton">Save</button></p>
+        </div>
+      </div>
+    </div>    
+  </body>
+</html>

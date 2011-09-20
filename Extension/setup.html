@@ -1,0 +1,207 @@
+<html>
+  <head>
+    <title>Setup</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin&v2' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+      body {
+        font-family: 'Lato', sans-serif;
+        background-color: #3C5A76;
+		background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 600, from(#7393AC), to(#3C5A76));
+		background: -moz-radial-gradient(50% 50%, farthest-side, #7393AC, #3C5A76);
+      }
+      
+      #header {
+        width: 100%;
+        text-align: right;
+        link-decoration: none;
+        text-color: #FFFFFF;
+      }
+      
+      #menubar {
+        width: 15%;
+        float: left;
+      }
+      
+      #menubar li {
+        padding-top: 5px;
+      }
+      
+      #content {
+        width: 50%;
+        margin: 0 auto;
+      }
+      
+      #progress {
+        font-size: 28px;
+        text-align: center;
+        width: 100%;
+        font-family: 'Lato', sans-serif;
+        font-weight: 600;
+        position: fixed;
+		bottom: 0px;
+		margin-bottom: 36px;
+      }
+      
+      #instructions {
+      	padding: 1%;
+      	font-size: 18px;
+      	color: #FFFFFF;
+      	text-shadow: 0px 2px 3px #555;
+      	font-size: 28px;
+      }
+      
+      #continue {
+      	text-align: right;
+      	width: 100%;
+      }
+      
+      #footer {
+      	text-align: center;
+      	width: 100%;
+      	clear: both;
+      	padding-top: 2%;
+      	font-size: 14px;
+      	position: fixed;
+		bottom: 0px;
+		color: #FFFFFF;
+		text-shadow: 0px 2px 3px #555;
+      }
+      
+      .bullet {
+      	padding: 2px;
+      	font-size: 46px;
+      	opacity: 0.5;
+      }
+      
+      .completed {
+      	color: #ffffff;
+      }
+      
+      .centered {
+        margin: 0px auto;
+        text-align: center;
+      }
+      
+      .continuebutton {
+		-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+		-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+		box-shadow:inset 0px 1px 0px 0px #ffffff;
+		background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+		background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+		background-color:#ededed;
+		-moz-border-radius:6px;
+		-webkit-border-radius:6px;
+		border-radius:6px;
+		border:1px solid #dcdcdc;
+		display:inline-block;
+		color:#444444;
+		font-family:arial;
+		font-size:15px;
+		font-weight:bold;
+		padding:6px 24px;
+		text-decoration:none;
+		text-shadow:1px 1px 0px #ffffff;
+	}
+
+	.continuebutton:hover {
+		background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+		background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+		background-color:#dfdfdf;
+	}
+
+	.continuebutton:active {
+		position:relative;
+		top:1px;
+	}
+
+	.textarea {
+		-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+		-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+		box-shadow:inset 0px 1px 0px 0px #ffffff;
+		background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+		background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+		background-color:#ededed;
+		-moz-border-radius:6px;
+		-webkit-border-radius:6px;
+		border-radius:6px;
+		border:1px solid #dcdcdc;
+		display:inline-block;
+		color:#444444;
+		font-family:arial;
+		font-size:25px;
+		font-weight:bold;
+		text-decoration:none;
+		text-shadow:1px 1px 0px #ffffff;
+		width: 450px;
+		text-align: center;
+	}
+    </style>
+    <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript" src="windows.js"></script>
+    <script type="text/javascript" src="auth.js"></script>
+    <script type="text/javascript">
+      var defaultHost = "https://gdocscontrol.appspot.com/"
+      var content = new Array();
+      content[0] = "<p>Thanks for downloading our extension! You'll be ready to start control your presentations in a minute&mdash;we just need to get your account configured.</p>";
+      content[1] = "<p>The first thing you need to do is tell the extension where your information is being stored. Enter the base URL (something like \"http://<i>your-server</i>.appspot.com/\") in the field below. This needs to match the one you entered (or will enter) for your Android device. <b>If you're unsure, just leave it as the default</b>. When you're done, <b>remember to hit Save</b>.</p><div class=\"form centered\"><input id=\"host\" class=\"textarea\" type=\"text\" value=\""+defaultHost+"\"><br \><input type=\"submit\" class=\"continuebutton\" value=\"Save\" onClick=\"setHost()\"></div>";      
+      content[2] = "<p>Finally, you need to give the extension permission to get your links from the server. The server uses your Google account for login and identification purposes, so you'll be asked to log in with that. Don't worry&mdash;we don't get any access to your account, password, or information. All this does is prove you are you say you are. You have one last step after you log in, so come back to this window.</p><p><a class=\"continuebutton\" href=\"#\" onClick=\"grantAuth();\">Log in</a></p>";
+      content[3] = "<p>You're good to go. If you don't have the Android app yet, you can scan the barcode below to download it. You'll need it to control your presentations.</p><p class=\"centered\"></p>";
+      var curPage = 0;
+      function updateContent(page){
+        curPage = page;
+        console.log(curPage);
+        if(curPage != 1 && curPage != 2)
+          document.getElementById("continue").style.display = "";
+        else
+          document.getElementById("continue").style.display = "none";
+        div = document.getElementById("instructionText");
+        div.innerHTML = content[page];
+        bullets = "";
+        for(i=0; i < content.length; i++){
+          bullets += "<span class=\"bullet"
+          if(i <= page){
+            bullets += " completed";
+          }
+          bullets += "\">&bull;</span>";
+        }
+        document.getElementById("bullets").innerHTML = bullets;
+        if(page == (content.length - 1)){
+          document.getElementById("continue").style.display = "none";
+          localStorage['config.setupCompleted'] = true;
+        }
+        document.getElementById("continueLink").href = "#"+(curPage + 2);
+      }            
+      
+      function setHost() {
+        hostText = document.getElementById('host').value;
+        if(hostText.indexOf("://") == -1)
+        	  hostText = "http://" + host;
+      	if(hostText.charAt(hostText.length - 1) != "/")
+        	  hostText += "/";
+    	  secureHostText = hostText.replace("http://", "https://");
+    	  config.save({'host':hostText, 'secureHost':secureHostText});
+        document.getElementById("continue").style.display = "";
+      }
+      
+      function grantAuth() {
+        document.getElementById("continue").style.display = "";
+        auth.initiate();
+      }
+    </script>
+  </head>
+  <body onLoad="updateContent(0);">
+    <div id="header">
+      <a href="http://gdocscontrol.appspot.com" id="helpLink" class="continuebutton">Help</a>
+    </div>
+       <div id="content">
+      <div id="instructions">
+        <div id="instructionText"></div>
+        <p id="continue" style="display: none;"><a href="#" onClick="updateContent(curPage+1)" id="continueLink" class="continuebutton">Continue</a></p>
+      </div>
+    </div>
+    <div id="progress"><div id="bullets"></div></div>    
+  </body>
+</html>
