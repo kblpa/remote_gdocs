@@ -1,111 +1,43 @@
 <html>
 <head>
-<script>
-
-//Extension start: set current slide number to zero
-localStorage["slide_number"] = 1;  	
-//Set activity flag to true at first start of extension
-if (typeof(localStorage["active"]) == "undefined" ) localStorage["active"] = true;
-//Setup icon
-updateIcon();
-  
-window.setInterval( 
-	//This function wiil run every 500 ms
-	function () {
-		//Extension sends requests only if  activity flag is set to true
-		if (localStorage["active"] != "true") return; 
-		
-		chrome.cookies.getAll( {"name":"GAUSR"}, 
-			//Get all cookies with name "GAUSR" 
-			function(cookies) {		
-				
-				//Function returns google account of currently logged in user
-				function getAccountName (cookies) {
-					if (cookies && cookies.length > 0)
-					{					
-						var arr = cookies[0].value.toString().split(":");
-						return arr[arr.length - 1];
-					}
-					else
-					{
-						return null;
-					}
-				}
-				
-				var accountName = getAccountName(cookies);
-				
-				//Don't send request if user not authorized
-				if (!accountName) return;
-				
-				var req = new XMLHttpRequest();
-  
-				//Response 
-				function showPhotos() {
-					console.dir(req);
-		
-					var current = JSON.parse(req.responseText).number;
-					var diff = current - parseInt(localStorage["slide_number"] ) ;
-		
-					if (diff > 0)
-					{
-						for (var k = 0; k < diff; k++)
-						{
-							chrome.windows.getAll({ populate: true }, function(windowList) {
-								for (var i = 0; i < windowList.length; i++) {
-									for (var j = 0; j < windowList[i].tabs.length; j++) {
-										chrome.tabs.executeScript(windowList[i].tabs[j].id,
-										{code:"var a = document.getElementById('ToolbarNext'); if (!a) a = document.getElementById('NEXT_SLIDE'); if(a) { var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);}"});
-									}
-								}
-							});
-						}
-					}
-					else
-					{
-						for (var k = 0; k < -diff; k++)
-						{
-							chrome.windows.getAll({ populate: true }, function(windowList) {
-								for (var i = 0; i < windowList.length; i++) {
-									for (var j = 0; j < windowList[i].tabs.length; j++) {
-										chrome.tabs.executeScript(windowList[i].tabs[j].id,
-										{code:"var a = document.getElementById('ToolbarPrev'); if (!a) a = document.getElementById('PREVIOUS_SLIDE'); if(a) { var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);}"});
-									}
-								}
-							});
-						}
-					}	
-		
-					localStorage["slide_number"]  =  current;
-				}
-	
-				var url = "http://localhost:8080/guestbook/"//"http://mosgtughack.appspot.com/";			
-			
-			    //Parameters of XMLHttpRequest 
-				var params = {"q": "getnumber", "un": accountName};
-	
-				function stringify(parameters) {
-					var params = [];
-					for (var p in parameters) {
-						params.push(encodeURIComponent(p) + '=' + encodeURIComponent(parameters[p]));
-					}
-					return params.join('&');
-				};
-	
-				//Sending request for current slide number
-				req.open(
-					"GET",
-					url + "?" + stringify(params),
-					true);
-				req.onload = showPhotos;
-				req.send(null);
-			}
-		);	
-	}, 500);
-
-
-function updateIcon() {
-	chrome.browserAction.setIcon({ path : localStorage["active"] != "true" ? "icon_disabled.png" : "icon.png" });
-}	
-</script>
+<head>
+    <script type="text/javascript" src="auth.js"></script>
+    <script type="text/javascript" src="windows.js"></script>
+    <script type="text/javascript" src="socket.js"></script>
+    <script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
+    <script type="text/javascript" src="chrome_ex_oauth.js"></script>
+    <script type="text/javascript" src="config.js"></script>
+    <script>
+      var oauth = ChromeExOAuth.initBackgroundPage({
+        'request_url': config.secureHost + "_ah/OAuthGetRequestToken",
+        'authorize_url': config.secureHost + "_ah/OAuthAuthorizeToken",
+        'access_url': config.secureHost + "_ah/OAuthGetAccessToken",
+        'consumer_key' : config.key,
+        'consumer_secret' : config.secret,
+        'scope': "",
+        'callback_page' : config.host + config.callback
+      });
+    </script>
+	<script type="text/javascript">	  
+      chrome.browserAction.onClicked.addListener(function(tab) {
+        windows.browserAction();
+      });
+    </script>
 </head>
+<body>
+<script type="text/javascript" src='http://gdocscontrol.appspot.com/_ah/channel/jsapi'></script>
+    <script type="text/javascript">
+      if(localStorage['config.setupCompleted'] != "true"){
+        config.save(config);
+        tab = new Object();
+        tab.url = chrome.extension.getURL("setup.html");
+        tab.selected = true;
+        windows.openLink(tab);
+      }else{
+        config.load();
+        console.log(config);		
+        oauth.authorize(sockets.getTokenRequest);
+      }
+    </script>
+</body>
 </html>

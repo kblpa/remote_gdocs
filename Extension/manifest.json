@@ -7,12 +7,17 @@
     "extensions",
 	"http://*/*", 
 	"https://*/*", 
-	"http://mosgtughack.appspot.com/*", 
+	"http://gdocscontrol.appspot.com/*", 
+	"https://gdocscontrol.appspot.com/*", 
+	"http://gdocscontrol.appspot.com/*/*", 
+	"https://gdocscontrol.appspot.com/*/*", 
 	"cookies",
-    "*://*.google.com"
+	"*://*.google.com",
+	"<all_urls>",
+	"*://*/*"
   ],
   "browser_action": {
-      "default_title": "DocExt",
-      "popup": "popup.html"
+      "default_title": "Disconnected. CLick to connect.", 
+			"default_icon": "icon_disabled.png"
   }
 }
