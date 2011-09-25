@@ -1,7 +1,7 @@
 {
   "name": "Google docs control extension",
   "version": "1.0",
-   "background_page": "background.html",
+  "background_page": "background.html",
   "permissions": [
     "tabs",
     "extensions",
@@ -16,8 +16,14 @@
 	"<all_urls>",
 	"*://*/*"
   ],
+  "content_scripts": [
+    {
+      "matches": ["https://docs.google.com/present/*"],      
+      "js": ["control.js"]
+    }
+  ],
   "browser_action": {
-      "default_title": "Disconnected. CLick to connect.", 
-			"default_icon": "icon_disabled.png"
-  }
+		"default_title": "Disconnected. CLick to connect.", 
+		"default_icon": "icon_disabled.png"
+  }  
 }

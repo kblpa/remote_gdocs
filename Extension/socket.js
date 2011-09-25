@@ -75,6 +75,10 @@ sockets.onMessage = function(evt) {
 		windows.clickPrev();
 	}
 	if (message.command == "res") {
+		windows.clickFirst();
+	}
+	if (message.command == "set") {			    
+		windows.clickSlideNumber(message.slide);		
 	}
   }
   //TODO: Handle other messages

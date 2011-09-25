@@ -69,8 +69,7 @@ windows.clickPrev = function() {
   chrome.windows.getAll({ populate: true }, function(windowList) {
     for (var i = 0; i < windowList.length; i++) {
       for (var j = 0; j < windowList[i].tabs.length; j++) {
-        chrome.tabs.executeScript(windowList[i].tabs[j].id,
-       {code:"var a = document.getElementById('ToolbarPrev'); if (!a) a = document.getElementById('PREVIOUS_SLIDE'); if(a) { var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);}"});
+		chrome.tabs.executeScript(windowList[i].tabs[j].id, {code:"var e = document.createEvent('Events'); e.initEvent('getprev', true, false);document.dispatchEvent(e);"});
       }
     }
   });
@@ -80,8 +79,31 @@ windows.clickNext = function() {
 	chrome.windows.getAll({ populate: true }, function(windowList) {
     for (var i = 0; i < windowList.length; i++) {
       for (var j = 0; j < windowList[i].tabs.length; j++) {
-        chrome.tabs.executeScript(windowList[i].tabs[j].id,
-       {code:"var a = document.getElementById('ToolbarNext'); if (!a) a = document.getElementById('NEXT_SLIDE'); if(a) { var event = document.createEvent('MouseEvents'); event.initMouseEvent('mousedown', true, true); a.dispatchEvent(event); event = document.createEvent('MouseEvents'); event.initMouseEvent('mouseup', true, true); a.dispatchEvent(event);}"});
+        chrome.tabs.executeScript(windowList[i].tabs[j].id, {code:"var e = document.createEvent('Events'); e.initEvent('getnext', true, false);document.dispatchEvent(e);"});
+      }
+    }
+  });
+};
+
+windows.clickFirst = function(slide) {
+	chrome.windows.getAll({ populate: true }, function(windowList) {
+    for (var i = 0; i < windowList.length; i++) {
+      for (var j = 0; j < windowList[i].tabs.length; j++) {
+        chrome.tabs.executeScript(windowList[i].tabs[j].id, {code:"var e = document.createEvent('Events'); e.initEvent('getfirst', true, false);document.dispatchEvent(e);"});
+      }
+    }
+  });
+};
+
+windows.clickSlideNumber = function(slide) {
+	var slideNumber = parseInt(message.slide);
+	if (!isNaN(slideNumber)) {
+		return;
+	}
+	chrome.windows.getAll({ populate: true }, function(windowList) {
+    for (var i = 0; i < windowList.length; i++) {
+      for (var j = 0; j < windowList[i].tabs.length; j++) {
+		chrome.tabs.executeScript(windowList[i].tabs[j].id, {code:"var e = document.createEvent('UIEvents'); e.initUIEvent('getnumber', true, false, null, " + slideNumber + ");document.dispatchEvent(e);" });
       }
     }
   });
