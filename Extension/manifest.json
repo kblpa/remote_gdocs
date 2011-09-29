@@ -1,18 +1,12 @@
 {
-  "name": "Google docs control extension",
+  "name": "Google Document Control Extension",
   "version": "1.0",
   "background_page": "background.html",
+  "options_page": "config.html",
+  "homepage_url": "http://gdocscontrol.appspot.com/about",
   "permissions": [
     "tabs",
-    "extensions",
-	"http://*/*", 
-	"https://*/*", 
-	"http://gdocscontrol.appspot.com/*", 
-	"https://gdocscontrol.appspot.com/*", 
-	"http://gdocscontrol.appspot.com/*/*", 
-	"https://gdocscontrol.appspot.com/*/*", 
-	"cookies",
-	"*://*.google.com",
+    "extensions",			
 	"<all_urls>",
 	"*://*/*"
   ],
@@ -25,5 +19,10 @@
   "browser_action": {
 		"default_title": "Disconnected. CLick to connect.", 
 		"default_icon": "icon_disabled.png"
-  }  
+  },  
+  "icons": {
+	"48": "icon48.png",
+    "64": "icon.png",
+	"128": "icon128.png"
+  }
 }

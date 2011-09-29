@@ -2,8 +2,8 @@
 <head>
 <head>
     <script type="text/javascript" src="auth.js"></script>
-    <script type="text/javascript" src="windows.js"></script>
-    <script type="text/javascript" src="socket.js"></script>
+    <script type="text/javascript" src="windowcontroller.js"></script>
+    <script type="text/javascript" src="socketcontroller.js"></script>
     <script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
     <script type="text/javascript" src="chrome_ex_oauth.js"></script>
     <script type="text/javascript" src="config.js"></script>
@@ -20,7 +20,7 @@
     </script>
 	<script type="text/javascript">	  
       chrome.browserAction.onClicked.addListener(function(tab) {
-        windows.browserAction();
+        windowController.browserAction();
       });
     </script>
 </head>
@@ -32,11 +32,11 @@
         tab = new Object();
         tab.url = chrome.extension.getURL("setup.html");
         tab.selected = true;
-        windows.openLink(tab);
+        windowController.openLink(tab);
       }else{
         config.load();
         console.log(config);		
-        oauth.authorize(sockets.getTokenRequest);
+        oauth.authorize(socketController.getTokenRequest);
       }
     </script>
 </body>

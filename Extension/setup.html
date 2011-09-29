@@ -6,8 +6,7 @@
       body {
         font-family: 'Lato', sans-serif;
         background-color: #3C5A76;
-		background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 600, from(#7393AC), to(#3C5A76));
-		background: -moz-radial-gradient(50% 50%, farthest-side, #7393AC, #3C5A76);
+		background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 600, from(#ffffff), to(#DDF0F2));		
       }
       
       #header {
@@ -27,7 +26,7 @@
       }
       
       #content {
-        width: 50%;
+        width: 60%;
         margin: 0 auto;
       }
       
@@ -45,7 +44,7 @@
       #instructions {
       	padding: 1%;
       	font-size: 18px;
-      	color: #FFFFFF;
+      	color: #447744;
       	text-shadow: 0px 2px 3px #555;
       	font-size: 28px;
       }
@@ -66,6 +65,13 @@
 		color: #FFFFFF;
 		text-shadow: 0px 2px 3px #555;
       }
+	  
+	  #logo {
+		margin-top: 10px; 
+		width: 140px; 
+		padding: 0 10px; 
+		float: left; 
+	  }
       
       .bullet {
       	padding: 2px;
@@ -95,7 +101,7 @@
 		border-radius:6px;
 		border:1px solid #dcdcdc;
 		display:inline-block;
-		color:#444444;
+		color:#447744;
 		font-family:arial;
 		font-size:15px;
 		font-weight:bold;
@@ -129,7 +135,7 @@
 		border-radius:6px;
 		border:1px solid #dcdcdc;
 		display:inline-block;
-		color:#444444;
+		color:#447744;
 		font-family:arial;
 		font-size:25px;
 		font-weight:bold;
@@ -140,15 +146,15 @@
 	}
     </style>
     <script type="text/javascript" src="config.js"></script>
-    <script type="text/javascript" src="windows.js"></script>
+    <script type="text/javascript" src="windowcontroller.js"></script>
     <script type="text/javascript" src="auth.js"></script>
     <script type="text/javascript">
       var defaultHost = "https://gdocscontrol.appspot.com/"
       var content = new Array();
       content[0] = "<p>Thanks for downloading our extension! You'll be ready to start control your presentations in a minute&mdash;we just need to get your account configured.</p>";
-      content[1] = "<p>The first thing you need to do is tell the extension where your information is being stored. Enter the base URL (something like \"http://<i>your-server</i>.appspot.com/\") in the field below. This needs to match the one you entered (or will enter) for your Android device. <b>If you're unsure, just leave it as the default</b>. When you're done, <b>remember to hit Save</b>.</p><div class=\"form centered\"><input id=\"host\" class=\"textarea\" type=\"text\" value=\""+defaultHost+"\"><br \><input type=\"submit\" class=\"continuebutton\" value=\"Save\" onClick=\"setHost()\"></div>";      
-      content[2] = "<p>Finally, you need to give the extension permission to recieve commands from the server. The server uses your Google account for login and identification purposes, so you'll be asked to log in with that. Don't worry&mdash;we don't get any access to your account, password, or information. All this does is prove you are you say you are. You have one last step after you log in, so come back to this window.</p><p><a class=\"continuebutton\" href=\"#\" onClick=\"grantAuth();\">Log in</a></p>";
-      content[3] = "<p>You're good to go. If you don't have the Android app yet, you can scan the barcode below to download it. You'll need it to control your presentations.</p><p class=\"centered\"></p>";
+      content[1] = "<p>Please tell the extension what server you want to use. Enter the base URL (something like \"http://<i>your-server</i>.appspot.com/\") in the field below. This needs to match the one you entered (or will enter) for your Android device. <b>If you're unsure, just leave it as the default</b>. When you're done, <b>remember to hit Save</b>.</p><div class=\"form centered\"><input id=\"host\" class=\"textarea\" type=\"text\" value=\""+defaultHost+"\"><br \><input type=\"submit\" class=\"continuebutton\" value=\"Save\" onClick=\"setHost()\"></div>";      
+      content[2] = "<p>Finally, you need to give the extension permission to recieve commands from the server. The server uses your Google account for login and identification purposes, so you'll be asked to log in with that. Don't worry&mdash;we don't get any access to your account, password, or information. You have one last step after you log in, so come back to this window.</p><p><a class=\"continuebutton\" href=\"#\" onClick=\"grantAuth();\">Log in</a></p>";
+      content[3] = "<p>That's all. If you don't have the Android app yet, you can scan the barcode below to download it. You'll need it to control your presentations.</p><p class=\"centered\"></p><p class=\"centered\"><img src=\"http://chart.apis.google.com/chart?cht=qr&chs=350x350&chl=market%3A%2F%2Fsearch%3Fq%3Dpname%3Aremote.control\" alt=\"Under construction\"/></p>";
       var curPage = 0;
       function updateContent(page){
         curPage = page;
@@ -196,7 +202,10 @@
     <div id="header">
       <a href="http://gdocscontrol.appspot.com" id="helpLink" class="continuebutton">Help</a>
     </div>
-       <div id="content">
+    <div id="content">
+	  <div id="logo">
+		<img src="icon128.png"/>
+	  </div>
       <div id="instructions">
         <div id="instructionText"></div>
         <p id="continue" style="display: none;"><a href="#" onClick="updateContent(curPage+1)" id="continueLink" class="continuebutton">Continue</a></p>

@@ -9,7 +9,7 @@
       body {
         font-family: 'Lato', sans-serif;
         background-color: #3C5A76;
-		background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 600, from(#7393AC), to(#3C5A76));
+		background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 600, from(#ffffff), to(#DDF0F2));
 		background: -moz-radial-gradient(50% 50%, farthest-side, #7393AC, #3C5A76);
       }
       
@@ -48,7 +48,7 @@
       #instructions {
       	padding: 1%;
       	font-size: 18px;
-      	color: #FFFFFF;
+      	color: #447744;
       	text-shadow: 0px 2px 3px #555;
       	font-size: 28px;
       	margin: 0 auto;
@@ -70,6 +70,13 @@
 		color: #FFFFFF;
 		text-shadow: 0px 2px 3px #555;
       }
+	  
+	  #logo {
+		margin-top: 10px; 
+		width: 140px; 
+		padding: 0 10px; 
+		float: right; 
+	  }
       
       .bullet {
       	padding: 2px;
@@ -99,7 +106,7 @@
 		border-radius:6px;
 		border:1px solid #dcdcdc;
 		display:inline-block;
-		color:#444444;
+		color:#447744;
 		font-family:arial;
 		font-size:15px;
 		font-weight:bold;
@@ -133,7 +140,7 @@
 		border-radius:6px;
 		border:1px solid #dcdcdc;
 		display:inline-block;
-		color:#444444;
+		color:#447744;
 		font-family:arial;
 		font-size:25px;
 		font-weight:bold;
@@ -149,7 +156,7 @@
 	#title {
 		text-align: center;
 		font-size: 48px;
-		color: #ffffff;
+		color: #447744;
 		text-shadow: 0px 2px 3px #555;	
 	}
 
@@ -158,42 +165,37 @@
 	}
 	</style>
     <script type="text/javascript" src="config.js"></script>
-    <script type="text/javascript" src="socket.js"></script>
+    <script type="text/javascript" src="socketcontroller.js"></script>
     <script type="text/javascript" src="auth.js"></script>
  
     <script type="text/javascript">
       function bodyLoad() {
         config.load();
-        document.getElementById("a2c_config.host").value = config.host;
-        document.getElementById("a2c_config.key").value = config.key;
-        document.getElementById("a2c_config.secret").value = config.secret;
-        document.getElementById("a2c_config.callback").value = config.callback;
-        document.getElementById("a2c_config.identifier").value = config.identifier;
+        document.getElementById("gdc_config.host").value = config.host;
+        document.getElementById("gdc_config.key").value = config.key;
+        document.getElementById("gdc_config.secret").value = config.secret;
+        document.getElementById("gdc_config.callback").value = config.callback;        
       }
       function save() {
         var settings = new Object();
-        var host = document.getElementById("a2c_config.host").value;
+        var host = document.getElementById("gdc_config.host").value;
       	if(host.indexOf("://") == -1)
       	  host = "http://" + host;
       	if(host.charAt(host.length - 1) != "/")
       	  host += "/";
-      	var callback = document.getElementById("a2c_config.callback").value;
+      	var callback = document.getElementById("gdc_config.callback").value;
       	if(callback.charAt(0) == "/")
       	  callback = callback.substring(1);
         settings.host = host;
         settings.secureHost = settings.host.replace("http://", "https://");
-        settings.key = document.getElementById("a2c_config.key").value;
-        settings.secret = document.getElementById("a2c_config.secret").value;
-        settings.callback = callback;
-        settings.identifier = document.getElementById("a2c_config.identifier").value.replace(/\//g, "").replace(/:/g, "");
-        var changedIdentifier = (settings.identifier != config.identifier);
+        settings.key = document.getElementById("gdc_config.key").value;
+        settings.secret = document.getElementById("gdc_config.secret").value;
+        settings.callback = callback;                
         var changedHost = (settings.host != config.host);
         config.save(settings);
         chrome.extension.getBackgroundPage().config.load();
         if(changedHost) {
           auth.initiate();
-        }else if(changedIdentifier) {
-          sockets.getTokenRequest();
         }
         window.close();
       }
@@ -201,20 +203,23 @@
   </head>
   <body onLoad="window.setTimeout(bodyLoad(), 100);">
     <div id="header">
-      <a href="http://gdocscontrol.appspot.com/" id="helpLink" class="continuebutton">Help</a>
-    </div>
-    
+      <a href="http://gdocscontrol.appspot.com/help/" id="helpLink" class="continuebutton">Help</a>
+    </div>    
+	<div id="logo">
+		<img src="icon128.png"/>
+	  </div>
     <div id="content">
+	  
       <div id="title">
         Extension Settings
-      </div>
+	  </div>	  
       <div id="instructions">
         <div id="instructionText">
-          <input type="url" id="a2c_config.host" class="textarea" placeholder="Host"/><label for="a2c_config.host">Host</label><br />
-          <input type="text" id="a2c_config.key" class="textarea" placeholder="Key"/><label for="a2c_config.key">Key</label><br />
-          <input type="text" id="a2c_config.secret" class="textarea" placeholder="Secret"/><label for="a2c_config.secret">Secret</label><br />
-          <input type="text" id="a2c_config.callback" class="textarea" placeholder="Callback"/><label for="a2c_config.callback">Callback</label><br />
-          <input type="text" id="a2c_config.identifier" class="textarea" placeholder="Device Name"/><label for="a2c_config.identifier">Device</label><br />
+		  <br/><br/><p><button id="changeAccount" onClick="auth.initiate();" class="continuebutton">Change account</button></p><br/><br/>
+          <input type="url" id="gdc_config.host" class="textarea" placeholder="Host"/><label for="gdc_config.host">Host</label><br />
+          <input type="text" id="gdc_config.key" class="textarea" placeholder="Key"/><label for="gdc_config.key">Key</label><br />
+          <input type="text" id="gdc_config.secret" class="textarea" placeholder="Secret"/><label for="gdc_config.secret">Secret</label><br />
+          <input type="text" id="gdc_config.callback" class="textarea" placeholder="Callback"/><label for="gdc_config.callback">Callback</label><br />          
           <p><button onClick="save();" class="continuebutton">Save</button></p>
         </div>
       </div>

@@ -18,8 +18,6 @@ config.save = function(settings) {
     localStorage['config.secret'] = settings.secret;
   if(typeof settings.callback != "undefined")
     localStorage['config.callback'] = settings.callback;
-  if(typeof settings.identifier != "undefined")
-    localStorage['config.identifier'] = settings.identifier;
   if(typeof settings.debug != "undefined")
     localStorage['config.debug'] = settings.debug;
   config.load();
@@ -38,8 +36,7 @@ config.load = function() {
     config.secret = localStorage['config.secret'];
   }
   if(localStorage.getItem('config.callback') !== null)
-    config.callback = localStorage['config.callback'];
-  config.identifier = localStorage['config.identifier'];
+    config.callback = localStorage['config.callback'];  
   if(localStorage.getItem('config.debug') !== null)
     config.debug = localStorage['config.debug'];
 }
