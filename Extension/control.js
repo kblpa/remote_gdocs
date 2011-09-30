@@ -24,6 +24,11 @@ presentationController.showSlideByNumber = function(slideNumber) {
 				if (!isNaN(slide)) {
 					slideCount++;
 				}
+			} else if (!isNaN(Number(a[count].innerText))) {
+				var slide = Number(a[count].innerText);
+				if (!isNaN(slide)) {
+					slideCount++;
+				}
 			}
 		}
 	
@@ -42,7 +47,17 @@ presentationController.showSlideByNumber = function(slideNumber) {
 					presentationController.raiseMouseEvent(elementToClick , 'mouseover');				
 					presentationController.raiseMouseEvent(elementToClick , 'click');		 
 					break; 
-				} 
+				} else if (!isNaN(Number(a[count].innerText))) {
+					var slide = Number(a[count].innerText);
+					if (!isNaN(slide)) {
+						elementToClick = a[count]; 
+						var footerSlideMenuContainer = document.getElementById('footerSlideMenuContainer'); 
+						presentationController.raiseMouseEvent(footerSlideMenuContainer , 'mouseover');				
+						presentationController.raiseMouseEvent(footerSlideMenuContainer.children[0] , 'mousedown');				
+						presentationController.raiseMouseEvent(elementToClick , 'mouseover');				
+						presentationController.raiseMouseEvent(elementToClick , 'click');		 
+					}
+				}
 			}
 		}
 	}
