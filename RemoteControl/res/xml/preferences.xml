@@ -1,0 +1,25 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Settings">
+        <CheckBoxPreference
+            android:key="silent"
+            android:title="Silent Sending"
+            android:summary="Send links without needing to hit the Send button"
+        />
+        <EditTextPreference
+            android:key="deviceName"
+            android:title="Device Name"
+            android:summary="A recognisable name for this device." />
+    </PreferenceCategory>
+        <PreferenceCategory android:title="Accounts" android:key="advancedCategory">
+        <ListPreference android:summary="The Google account to store your data with." android:title="Account" android:key="account" android:entries="@array/accounts" android:entryValues="@array/accounts" android:enabled="false"></ListPreference>
+        <Preference
+            android:key="addNewAccount"
+            android:title="Add New Account"
+            android:summary="Add a Google account." />
+        <Preference
+            android:key="deleteAccount"
+            android:title="Delete Current Account"
+            android:summary="Delete the account that is selected." />
+    </PreferenceCategory>
+</PreferenceScreen>

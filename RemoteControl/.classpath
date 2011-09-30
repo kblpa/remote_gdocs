@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="lib" path="/home/ikb/workspace/RemoteControl/libs/android-support-v4.jar"/>
+	<classpathentry kind="lib" path="/home/ikb/workspace/RemoteControl/lib/signpost-commonshttp4-1.2.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/ikb/workspace/RemoteControl/lib/signpost.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
