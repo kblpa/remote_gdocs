@@ -3,7 +3,7 @@
   "version": "1.0",
   "background_page": "background.html",
   "options_page": "config.html",
-  "homepage_url": "http://gdocscontrol.appspot.com/about",
+  "homepage_url": "http://gdocscontrol.appspot.com/",
   "permissions": [
     "tabs",
     "extensions",			
