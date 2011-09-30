@@ -47,9 +47,10 @@ presentationController.showSlideByNumber = function(slideNumber) {
 					presentationController.raiseMouseEvent(elementToClick , 'mouseover');				
 					presentationController.raiseMouseEvent(elementToClick , 'click');		 
 					break; 
-				} else if (!isNaN(Number(a[count].innerText))) {
+				} 
+			} else if (!isNaN(Number(a[count].innerText))) {
 					var slide = Number(a[count].innerText);
-					if (!isNaN(slide)) {
+					if (!isNaN(slide) && slide == slideNumber) {
 						elementToClick = a[count]; 
 						var footerSlideMenuContainer = document.getElementById('footerSlideMenuContainer'); 
 						presentationController.raiseMouseEvent(footerSlideMenuContainer , 'mouseover');				
@@ -57,7 +58,6 @@ presentationController.showSlideByNumber = function(slideNumber) {
 						presentationController.raiseMouseEvent(elementToClick , 'mouseover');				
 						presentationController.raiseMouseEvent(elementToClick , 'click');		 
 					}
-				}
 			}
 		}
 	}
