@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:id="@+id/formLayout"
-		android:padding="20dp" xmlns:android="http://schemas.android.com/apk/res/android">
+		android:padding="20dp" xmlns:android="http://schemas.android.com/apk/res/android" android:gravity="left">
 	<TextView
     	android:id="@+id/caption"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
         android:padding="20dp"
-    	android:text="Use buttons to control Your presentation in Chrome browser."/>
-    <Button android:id="@+id/prev" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:layout_below="@id/caption"
-			android:layout_alignParentRight="true" android:layout_marginLeft="10dp"
-			android:text="Prev" />
-	<Button android:id="@+id/first" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:layout_below="@id/prev"
-			android:layout_alignParentRight="true" android:layout_marginLeft="10dp"
-			android:text="First" />
-	<Button android:id="@+id/next" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:layout_below="@id/first"
-			android:layout_alignParentRight="true" android:layout_marginLeft="10dp"
-			android:text="Next" />	
+    	android:text="Use buttons to control Your presentation in Chrome browser."/>   
+    	 
+    <Button android:id="@+id/prev" android:layout_height="wrap_content" 
+    	android:layout_width="wrap_content" android:layout_below="@+id/caption" android:background="@drawable/prev"
+    	android:width="150px" android:height="150px"
+    	android:layout_alignParentLeft="true"/>
+    	
+	<Button android:id="@+id/first" android:layout_height="wrap_content" android:layout_below="@+id/caption"
+			android:layout_width="wrap_content" android:background="@drawable/start" android:width="150px" android:height="150px"
+			android:layout_marginLeft="135px"/>
+			
+	<Button android:id="@+id/next" android:layout_height="wrap_content" android:layout_below="@+id/caption"	
+			android:layout_alignParentRight="true"		
+			android:layout_width="wrap_content" android:background="@drawable/next" android:width="150px" android:height="150px"/>	
+			
     <TextView android:id="@+id/account_label"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:paddingBottom="20dp" android:paddingLeft="20dp"
 		android:paddingRight="20dp" android:paddingTop="5dp"
 		android:layout_below="@id/next"
-		android:text=""/>    
+		android:text=""/>
+	
 </RelativeLayout>
